@@ -1,0 +1,247 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+
+<link rel="import" href="../../bower_components/app-layout/app-header-layout/app-header-layout.html">
+<link rel="import" href="../../bower_components/app-layout/app-header/app-header.html">
+<link rel="import" href="../../bower_components/app-layout/app-scroll-effects/app-scroll-effects.html">
+<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/paper-ripple/paper-ripple.html">
+
+<link rel="import" href="kalamkari-icons.html">
+
+
+<dom-module id="kalamkari-home">
+    <template>
+        <style>
+        :host {
+            display: block;
+        }
+
+        app-header {
+            z-index: 1;
+            height: 64px;
+            line-height: 64px;
+            background-color: rgba(0, 0, 0, 0.85);
+            border-bottom: 1px solid #222;
+            -webkit-backdrop-filter: saturate(180%) blur(20px);
+        }
+
+        app-toolbar {
+            display: flex;
+            align-items: center;
+        }
+
+        a.title-link {
+            @apply(--layout-flex-auto);
+            @apply(--layout-horizontal);
+            @apply(--layout-center);
+            @apply(--layout-center-justified);
+            text-decoration: none;
+            color: white;
+            margin-right: 40px;
+        }
+        a.title-link:hover {
+            color: #ddd;
+        }
+        .title {
+            font-size: 14px;
+            margin: 0;
+            text-align: center;
+            text-transform: uppercase;
+            font-weight: 100;
+            letter-spacing: 5px;
+            word-spacing: 7px;
+            display: inline;
+            margin-left: 20px;
+            margin-right: 20px;
+            transition: opacity 0.2s;
+            white-space: nowrap;
+        }
+        .chrome-logo {
+            margin-left: 16px;
+            width: 30px;
+            height: 30px;
+            transition: transform 0.2s ease-out;
+        }
+
+        #leftIcon {
+            min-width: 64px;
+            color: white;
+        }
+
+        header {
+            @apply --layout-vertical;
+            @apply --layout-center-center;
+            height: 100vh;
+            padding: 0 16px;
+            background-color: #942;
+            background-image:url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSczMDAnIGhlaWdodD0nMzAwJyB2aWV3Qm94PScwIDAgMTUwIDE1MCc+Cgk8ZmlsdGVyIGlkPSduJyB4PScwJyB5PScwJz4KCQk8ZmVUdXJidWxlbmNlIHR5cGU9J3R1cmJ1bGVuY2UnIGJhc2VGcmVxdWVuY3k9Jy43JyByZXN1bHQ9J2Z1enonIG51bU9jdGF2ZXM9JzInIHN0aXRjaFRpbGVzPSdzdGl0Y2gnLz4KCQk8ZmVDb21wb3NpdGUgaW49J1NvdXJjZUdyYXBoaWMnIGluMj0nZnV6eicgb3BlcmF0b3I9J2FyaXRobWV0aWMnIGsxPScwJyBrMj0nMScgazM9Jy0wLjUnIGs0PScuMDEnIC8+Cgk8L2ZpbHRlcj4KCTxyZWN0IHdpZHRoPScxMDIlJyBoZWlnaHQ9JzEwMiUnIGZpbGw9JyNmMGViZWInLz4KCTxyZWN0IHg9Jy0xJScgeT0nLTElJyB3aWR0aD0nMTAyJScgaGVpZ2h0PScxMDIlJyBmaWxsPScjOTQyJyBmaWx0ZXI9J3VybCgjbiknIG9wYWNpdHk9JzEnLz4KPC9zdmc+);
+            
+            background-size: cover;
+            color: white;
+            text-align: center;
+            margin-top: -64px;
+        }
+
+        .grid {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin: 16px 12px 16px 12px;
+            padding: 0;
+            list-style: none;
+        }
+
+        .grid li {
+            flex: 1 1;
+            flex-basis: 24%;
+            max-width: 24%;
+            margin: 8px 0;
+        }
+
+        @media (max-width: 767px) {
+            .grid li {
+            flex-basis: 49%;
+            max-width: 49%;
+            margin: 8px 0;
+            }
+        }
+
+        @media (max-width: 460px) {
+            .grid li {
+            flex-basis: 100%;
+            max-width: 100%;
+            margin: 8px 0;
+            }
+        }
+
+        </style>
+
+        <app-header-layout>
+
+            <app-header reveals effects="waterfall" slot="header">
+            <app-toolbar >
+            <paper-icon-button icon="menu" id="leftIcon"></paper-icon-button>
+            <a href="/" title="Developer Channel" class="title-link">
+                <!-- svg logo -->
+                <svg class="chrome-logo" xmlns="http://www.w3.org/2000/svg" viewBox="15.5 15.5 224.5 224.5">
+                <defs>
+                    <radialGradient cy="0" cx="0.5" id="r">
+                    <stop stop-color="#f06b59"/>
+                    <stop offset="1" stop-color="#df2227"/>
+                    </radialGradient>
+                    <radialGradient r="0.76" cy="0.3" cx="0.65" id="g">
+                    <stop offset="0.65" stop-color="#4cb749"/>
+                    <stop offset="1" stop-color="#388b41"/>
+                    </radialGradient>
+                    <radialGradient r="0.8" cy="0.25" cx="0.36" id="y">
+                    <stop offset="0.6" stop-color="#FCD209"/>
+                    <stop offset="0.7" stop-color="#f7c616"/>
+                    <stop offset="1" stop-color="#bc821e"/>
+                    </radialGradient>
+                    <radialGradient r="1" cy="0" cx="0.5" spreadMethod="pad" id="cf">
+                    <stop offset="0.1" stop-color="#7FB3DF"/>
+                    <stop offset="0.9" stop-color="#0F5B94"/>
+                    </radialGradient>
+                    <radialGradient id="cb" r="1" cy="0" cx="0.5">
+                    <stop offset="0" stop-color="#F6F0EE"/>
+                    <stop offset="1" stop-color="#ddd"/>
+                    </radialGradient>
+                </defs>
+                <path d="m198,148a70,70 0 0 0 -140,0l20,0a50,50 0 0 1 100,0" fill-opacity="0.1"/>
+                <circle r="45" cx="127.5" cy="127.6" fill="url(#cf)" stroke="url(#cb)" stroke-width="9" />
+                <path d="m228,78a112,112 0 0 0 -193,-13l45,78a50,50 0 0 1 47,-65" fill="url(#r)"/>
+                <path d="m35,65a112,112 0 0 0 84,174l47,-80a50,50 0 0 1 -86,-16" fill="url(#g)"/>
+                <path d="m119,239a112,112 0 0 0 109,-161l-101,0a50,50 0 0 1 39,81" fill="url(#y)"/>
+                <path d="m35,65l45,78a50,50 0 0 1 2,-34l-45,-47" opacity="0.075"/>
+                <path d="m119,239l47,-80a50,50 0 0 1 -29,17l-20,63" opacity="0.05"/>
+                <path d="m228,78l-101,0a50,50 0 0 1 39,19l64,-16" opacity="0.05"/>
+                </svg>
+                <h1 class="title">Kalamkari</h1>
+            </a>
+            </app-toolbar>
+        </app-header>
+
+        <header>
+            <h2>Welcome To Our Landing Page</h2>
+            <p>Made with App Layout Elements</p>
+        </header>
+
+        <ul class="grid">
+            <template is="dom-repeat" items="[[categories]]" as="category">
+                <li>
+                    <paper-card heading="[[category.heading]]" image="[[category.image]]" alt="[[category.heading]]">
+                        <div class="card-content">[[category.description]]</div>
+                        <paper-ripple on-transitionend="categorySelection"></paper-ripple>
+                    </paper-card>
+                </li>
+            </template>
+        </ul>
+    </app-header-layout>
+
+  </template>
+  <script>
+    // Your new element extends the Polymer.Element base class
+    class KalamkariHome extends Polymer.Element {
+      static get is() { return 'kalamkari-home'; }
+
+      static get properties() {
+        return {
+          opendrawer: {
+            type: Boolean,
+            value: false,
+            notify: true,
+            reflectToAttribute: true
+          },
+          categories: {
+              type: Array,
+              value: function() {
+                return [
+                    { 
+                        link: '/canvas', 
+                        heading: 'Canvas', 
+                        description: 'Emmentaler or Emmental is a yellow, medium-hard cheese that originated in the area around Emmental, Switzerland. It is one of the cheeses of Switzerland, and is sometimes known as Swiss cheese.',
+                        image: 'http://placehold.it/350x150/FFC107/000000'
+                    },
+                    { 
+                        link: '/canvas', 
+                        heading: 'Canvas', 
+                        description: 'Emmentaler or Emmental is a yellow, medium-hard cheese that originated in the area around Emmental, Switzerland. It is one of the cheeses of Switzerland, and is sometimes known as Swiss cheese.',
+                        image: 'http://placehold.it/350x150/FFC107/000000'
+                    },
+                    { 
+                        link: '/canvas', 
+                        heading: 'Canvas', 
+                        description: 'Emmentaler or Emmental is a yellow, medium-hard cheese that originated in the area around Emmental, Switzerland. It is one of the cheeses of Switzerland, and is sometimes known as Swiss cheese.',
+                        image: 'http://placehold.it/350x150/FFC107/000000'
+                    },
+                    { 
+                        link: '/canvas', 
+                        heading: 'Canvas', 
+                        description: 'Emmentaler or Emmental is a yellow, medium-hard cheese that originated in the area around Emmental, Switzerland. It is one of the cheeses of Switzerland, and is sometimes known as Swiss cheese.',
+                        image: 'http://placehold.it/350x150/FFC107/000000'
+                    }
+                ];
+            }
+          }
+        };
+      }
+
+      ready() {
+        super.ready()
+        this.$.leftIcon.addEventListener('click', e => {
+          this.opendrawer = true;
+        });
+      }
+
+      categorySelection(e) {
+          this.dispatchEvent(new CustomEvent('change-route', {detail: {routeLink: e.model.category.link}}));
+      }
+
+    }
+    //Now, register your new custom element so the browser can use it
+    customElements.define(KalamkariHome.is, KalamkariHome);
+  </script>
+</dom-module>

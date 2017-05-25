@@ -1,0 +1,153 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+
+<link rel="import" href="../../bower_components/app-layout/app-header-layout/app-header-layout.html">
+<link rel="import" href="../../bower_components/app-layout/app-header/app-header.html">
+<link rel="import" href="../../bower_components/app-layout/app-scroll-effects/app-scroll-effects.html">
+<link rel="import" href="../../bower_components/app-layout/app-drawer/app-drawer.html">
+<link rel="import" href="../../bower_components/iron-pages/iron-pages.html">
+<link rel="import" href="../../bower_components/iron-selector/iron-selector.html">
+
+<link rel="import" href="../../bower_components/app-route/app-location.html">
+<link rel="import" href="../../bower_components/app-route/app-route.html">
+
+<link rel="import" href="kalamkari-home.html">
+<link rel="import" href="kalamkari-canvas.html">
+
+<dom-module id="kalamkari-app">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+
+      app-drawer {
+        white-space: nowrap;
+        --app-drawer-width: 300px;
+        --app-drawer-content-container: {
+          background-color: white;
+        }
+      }
+
+      .nav {
+        padding-top: 100px;
+        text-align: right;
+        list-style: none;
+        padding-right: 20px;
+        height: 100%;
+      }
+      .nav a {
+        color: #c0c0c0;
+        text-decoration: none;
+        font-weight: 300;
+        line-height: 32px;
+        font-size: 14px;
+        display: inline-block;
+        transform-origin: right center;
+        transition: transform 0.2s;
+      }
+      .nav a:hover {
+        color: #dfdfdf;
+        transform: scale3d(1.2, 1.2, 1);
+      }
+
+      .grid {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        margin: 16px 12px 16px 12px;
+        padding: 0;
+        list-style: none;
+      }
+
+      .grid li {
+        flex: 1 1;
+        flex-basis: 24%;
+        max-width: 24%;
+        margin: 8px 0;
+      }
+
+      @media (max-width: 640px) {
+        #leftIcon {
+          min-width: 40px;
+        }
+      }
+
+      @media (max-width: 767px) {
+        .grid li {
+          flex-basis: 49%;
+          max-width: 49%;
+          margin: 8px 0;
+        }
+      }
+
+      @media (max-width: 460px) {
+        .grid li {
+          flex-basis: 100%;
+          max-width: 100%;
+          margin: 8px 0;
+        }
+      }
+
+    </style>
+
+    <app-location route="{{route}}"></app-location>
+    <app-route
+        route="{{route}}"
+        pattern="/:page"
+        data="{{routeData}}"
+        tail="{{subroute}}"></app-route>
+
+    <iron-pages id="pages"
+      role="main"
+      selected="[[routeData.page]]"
+      selected-attribute="active"
+      attr-for-selected="name"
+      fallback-selection="home">
+        <kalamkari-home name="home" subroute="[[subroute]]" opendrawer="{{openedDrawer}}" on-change-route="redirectPage"></kalamkari-home>
+        <kalamkari-canvas name="canvas" subroute="[[subroute]]" opendrawer="{{openedDrawer}}"></kalamkari-canvas>
+    </iron-pages>
+
+    <app-drawer
+        opened="{{openedDrawer}}">
+      <ul class="nav" role="navigation">
+        <h2>Shows</h2>
+        <iron-selector selected="[[routeData.page]]" attr-for-selected="name" on-iron-select="pageChanged">
+          <li name="home"><a href="/home">Duppattas</a></li>
+          <li name="canvas"><a href="/canvas">Canvas</a></li>
+          <li><a href="/shows">Sarees</a></li>
+          <li><a href="/shows">Contact Us</a></li>
+        </iron-selector>
+      </ul>
+    </app-drawer>
+    
+  </template>
+
+  <script>
+    /**
+     * @customElement
+     * @polymer
+     */
+    class KalamkariApp extends Polymer.Element {
+      static get is() { return 'kalamkari-app'; }
+      static get properties() {
+        return {
+          openedDrawer: {
+            type: Boolean,
+            value: false
+          }
+        };
+      }
+
+      pageChanged(e) {
+        this.openedDrawer = false;
+      }
+
+      redirectPage(event) {
+        this.set('route.path', event.detail.routeLink);
+      }
+    }
+
+    window.customElements.define(KalamkariApp.is, KalamkariApp);
+  </script>
+</dom-module>

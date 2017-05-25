@@ -1,0 +1,7 @@
+{
+  "name": "Kalamkari Home",
+  "short_name": "Kalamkari Home",
+  "description": "Kalamkari website",
+  "start_url": "/",
+  "display": "standalone"
+}
