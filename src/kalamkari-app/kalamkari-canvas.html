@@ -7,6 +7,7 @@
 <link rel="import" href="../../bower_components/paper-card/paper-card.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../../bower_components/paper-ripple/paper-ripple.html">
+<link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
 
 <link rel="import" href="kalamkari-icons.html">
 
@@ -116,6 +117,11 @@
 
         </style>
 
+        <iron-ajax auto
+            url="src/canvas.json"
+            handle-as="json"
+            last-response="{{items}}">
+        </iron-ajax>
         <app-header-layout fullbleed>
 
             <app-header fixed condenses effects="waterfall parallax-background resize-title" slot="header" style="height: 200px;">
@@ -206,95 +212,14 @@
         </app-header>
 
         <ul class="grid">
+            <template is="dom-repeat" items="[[items]]" as="item">
                 <li>
-                <paper-card heading="Emmental" image="http://placehold.it/350x150/FFC107/000000" alt="Emmental">
-                    <div class="card-content">
-                    Emmentaler or Emmental is a yellow, medium-hard cheese that originated in the area around Emmental, Switzerland. It is one of the cheeses of Switzerland, and is sometimes known as Swiss cheese.
-                    </div>
-                    <div class="card-actions">
-                    Explore
-                    </div>
+                <paper-card heading="[[item.title]]" image="[[item.image]]" alt="[[item.title]]">
                     <paper-ripple></paper-ripple>
                 </paper-card>
                 </li>
-                <li>
-                <paper-card heading="Emmental" image="http://placehold.it/350x150/FFC107/000000" alt="Emmental">
-                    <div class="card-content">
-                    Emmentaler or Emmental is a yellow, medium-hard cheese that originated in the area around Emmental, Switzerland. It is one of the cheeses of Switzerland, and is sometimes known as Swiss cheese.
-                    </div>
-                    <div class="card-actions">
-                    Explore
-                    </div>
-                    <paper-ripple></paper-ripple>
-                </paper-card>
-                </li>
-                <li>
-                <paper-card heading="Emmental" image="http://placehold.it/350x150/FFC107/000000" alt="Emmental">
-                    <div class="card-content">
-                    Emmentaler or Emmental is a yellow, medium-hard cheese that originated in the area around Emmental, Switzerland. It is one of the cheeses of Switzerland, and is sometimes known as Swiss cheese.
-                    </div>
-                    <div class="card-actions">
-                    Explore
-                    </div>
-                    <paper-ripple></paper-ripple>
-                </paper-card>
-                </li>
-                <li>
-                <paper-card heading="Emmental" image="http://placehold.it/350x150/FFC107/000000" alt="Emmental">
-                    <div class="card-content">
-                    Emmentaler or Emmental is a yellow, medium-hard cheese that originated in the area around Emmental, Switzerland. It is one of the cheeses of Switzerland, and is sometimes known as Swiss cheese.
-                    </div>
-                    <div class="card-actions">
-                    Explore
-                    </div>
-                    <paper-ripple></paper-ripple>
-                </paper-card>
-                </li>
-                <li>
-                <paper-card heading="Emmental" image="http://placehold.it/350x150/FFC107/000000" alt="Emmental">
-                    <div class="card-content">
-                    Emmentaler or Emmental is a yellow, medium-hard cheese that originated in the area around Emmental, Switzerland. It is one of the cheeses of Switzerland, and is sometimes known as Swiss cheese.
-                    </div>
-                    <div class="card-actions">
-                    Explore
-                    </div>
-                    <paper-ripple></paper-ripple>
-                </paper-card>
-                </li>
-                <li>
-                <paper-card heading="Emmental" image="http://placehold.it/350x150/FFC107/000000" alt="Emmental">
-                    <div class="card-content">
-                    Emmentaler or Emmental is a yellow, medium-hard cheese that originated in the area around Emmental, Switzerland. It is one of the cheeses of Switzerland, and is sometimes known as Swiss cheese.
-                    </div>
-                    <div class="card-actions">
-                    Explore
-                    </div>
-                    <paper-ripple></paper-ripple>
-                </paper-card>
-                </li>
-                <li>
-                <paper-card heading="Emmental" image="http://placehold.it/350x150/FFC107/000000" alt="Emmental">
-                    <div class="card-content">
-                    Emmentaler or Emmental is a yellow, medium-hard cheese that originated in the area around Emmental, Switzerland. It is one of the cheeses of Switzerland, and is sometimes known as Swiss cheese.
-                    </div>
-                    <div class="card-actions">
-                    Explore
-                    </div>
-                    <paper-ripple></paper-ripple>
-                </paper-card>
-                </li>
-                <li>
-                <paper-card heading="Emmental" image="http://placehold.it/350x150/FFC107/000000" alt="Emmental">
-                    <div class="card-content">
-                    Emmentaler or Emmental is a yellow, medium-hard cheese that originated in the area around Emmental, Switzerland. It is one of the cheeses of Switzerland, and is sometimes known as Swiss cheese.
-                    </div>
-                    <div class="card-actions">
-                    Explore
-                    </div>
-                    <paper-ripple></paper-ripple>
-                </paper-card>
-                </li>
-            </ul>
+            </template>
+        </ul>
         </app-header-layout>
 
   </template>
