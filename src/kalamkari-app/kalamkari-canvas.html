@@ -1,5 +1,6 @@
 <link rel="import" href="../../bower_components/polymer/polymer-element.html">
 
+<link rel="import" href="../../bower_components/neon-animation/web-animations.html">
 <link rel="import" href="../../bower_components/app-layout/app-header-layout/app-header-layout.html">
 <link rel="import" href="../../bower_components/app-layout/app-header/app-header.html">
 <link rel="import" href="../../bower_components/app-layout/app-scroll-effects/app-scroll-effects.html">
@@ -8,6 +9,10 @@
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../../bower_components/paper-ripple/paper-ripple.html">
 <link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
+<link rel="import" href="../../bower_components/neon-animation/neon-animated-pages.html">
+<link rel="import" href="../../bower_components/neon-animation/neon-animatable.html">
+<link rel="import" href="../../bower_components/neon-animation/neon-animations.html">
 
 <link rel="import" href="kalamkari-icons.html">
 
@@ -115,6 +120,41 @@
             }
         }
 
+        paper-dialog {
+            overflow: hidden;
+            width: 100%;
+            height: 100%;
+        }
+
+        neon-animated-pages {
+          height: 100%;
+          width: 100%;
+          @apply --layout-flex;
+        }
+
+        neon-animatable {
+          color: white;
+          @apply --layout-horizontal;
+          @apply --layout-center-center;
+          @apply --paper-font-display4;
+        }
+
+        .carousal-button {
+            position: absolute;
+            top: 50%;
+            margin-top: 0;
+            z-index: 1;
+        }
+
+        .carousal-button.left {
+            left: 0;
+        }
+
+        .carousal-button.right {
+            right: 0;
+        }
+
+
         </style>
 
         <iron-ajax auto
@@ -215,12 +255,25 @@
             <template is="dom-repeat" items="[[items]]" as="item">
                 <li>
                 <paper-card heading="[[item.title]]" image="[[item.image]]" alt="[[item.title]]">
-                    <paper-ripple></paper-ripple>
+                    <paper-ripple on-transitionend="showImage"></paper-ripple>
                 </paper-card>
                 </li>
             </template>
         </ul>
         </app-header-layout>
+
+        <paper-dialog id="dialog">
+            <button on-click="_onPrevClick" class="carousal-button left">&#8678;</button>
+            <neon-animated-pages id="pages" selected="[[selectedItemIndex]]" entry-animation="[[entryAnimation]]" exit-animation="[[exitAnimation]]">
+                <template is="dom-repeat" items="[[items]]" as="item">
+                    <neon-animatable>
+                        <h4 style="color: black;">[[index]]</h4>
+                        <img src="[[item.image]]">
+                    </neon-animatable>
+                </template>
+            </neon-animated-pages>
+            <button on-click="_onNextClick" class="carousal-button right">&#8680;</button>
+        </paper-dialog>
 
   </template>
   <script>
@@ -235,6 +288,16 @@
             value: false,
             notify: true,
             reflectToAttribute: true
+          },
+          selectedItemIndex: {
+              type: Number,
+              value: 0,
+          },
+          entryAnimation: {
+              type: String
+          },
+          exitAnimation: {
+              type: String
           }
         };
       }
@@ -244,6 +307,24 @@
         this.$.leftIcon.addEventListener('click', e => {
           this.opendrawer = true;
         });
+      }
+
+      showImage(e) {
+          this.selectedItemIndex = e.model.itemsIndex;
+          this.$.dialog.open();
+      }
+
+      _onPrevClick() {
+        this.entryAnimation = 'slide-from-left-animation';
+        this.exitAnimation = 'slide-right-animation';
+        this.selectedItemIndex = this.selectedItemIndex === 0 ? (this.items.length - 1) : (this.selectedItemIndex - 1);
+      }
+
+      _onNextClick() {
+        this.entryAnimation = 'slide-from-right-animation';
+        this.exitAnimation = 'slide-left-animation';
+        this.selectedItemIndex = this.selectedItemIndex === (this.items.length - 1) ? 0 : (this.selectedItemIndex + 1);
+        
       }
 
     }
