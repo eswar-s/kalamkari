@@ -7,6 +7,7 @@
 <link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../../bower_components/paper-card/paper-card.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/paper-fab/paper-fab.html">
 <link rel="import" href="../../bower_components/paper-ripple/paper-ripple.html">
 <link rel="import" href="../../bower_components/iron-ajax/iron-ajax.html">
 <link rel="import" href="../../bower_components/paper-dialog/paper-dialog.html">
@@ -121,7 +122,6 @@
         }
 
         paper-dialog {
-            overflow: hidden;
             width: 100%;
             height: 100%;
         }
@@ -130,6 +130,8 @@
           height: 100%;
           width: 100%;
           @apply --layout-flex;
+          margin: 0;
+          padding: 0;
         }
 
         neon-animatable {
@@ -141,17 +143,31 @@
 
         .carousal-button {
             position: absolute;
-            top: 50%;
-            margin-top: 0;
             z-index: 1;
+            padding: 0;
+            margin-bottom: 0;
+            margin-top: 0;
         }
 
         .carousal-button.left {
             left: 0;
+            top: 50%;
         }
 
         .carousal-button.right {
             right: 0;
+            top: 50%;
+        }
+
+        .carousal-close {
+            position: absolute;
+            margin: 0;
+            padding: 0;
+            top: -15px;
+            left: -15px;
+            background: white;
+            color: black;
+            z-index: 1;
         }
 
 
@@ -263,7 +279,8 @@
         </app-header-layout>
 
         <paper-dialog id="dialog">
-            <button on-click="_onPrevClick" class="carousal-button left">&#8678;</button>
+            <paper-fab mini icon="close" class="carousal-close" on-transitionend="_closeDialog"></paper-fab>
+            <paper-icon-button icon="navigate-before" on-click="_onPrevClick" class="carousal-button left"></paper-icon-button>
             <neon-animated-pages id="pages" selected="[[selectedItemIndex]]" entry-animation="[[entryAnimation]]" exit-animation="[[exitAnimation]]">
                 <template is="dom-repeat" items="[[items]]" as="item">
                     <neon-animatable>
@@ -272,7 +289,8 @@
                     </neon-animatable>
                 </template>
             </neon-animated-pages>
-            <button on-click="_onNextClick" class="carousal-button right">&#8680;</button>
+            <paper-icon-button icon="navigate-next" on-click="_onNextClick" class="carousal-button right"></paper-icon-button>
+            <!--<button on-click="_onNextClick" class="carousal-button right">&#8680;</button>-->
         </paper-dialog>
 
   </template>
@@ -324,7 +342,10 @@
         this.entryAnimation = 'slide-from-right-animation';
         this.exitAnimation = 'slide-left-animation';
         this.selectedItemIndex = this.selectedItemIndex === (this.items.length - 1) ? 0 : (this.selectedItemIndex + 1);
-        
+      }
+
+      _closeDialog() {
+          this.$.dialog.close();
       }
 
     }

@@ -84,6 +84,44 @@
             margin-top: -64px;
         }
 
+        header .kalamkari-info {
+            @apply --layout-vertical;
+            @apply --layout-center-center;
+
+            position: relative;
+            color: white;
+            padding: 0 16px;
+        }
+
+        header .kalamkari-info > * {
+            z-index: 1;
+            font-weight: 100;
+        }
+
+        header .kalamkari-info::after {
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: yellow;
+            content: '';
+            opacity: 0.5;
+        }
+
+        header .kalamkari-info h2 {
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            font-size: 18px;
+        }
+
+        header .kalamkari-info p {
+            letter-spacing: 5px;
+            word-spacing: 7px;
+            font-size: 14px;
+        }
+
         .grid {
             display: flex;
             flex-direction: row;
@@ -165,8 +203,12 @@
         </app-header>
 
         <header>
-            <h2>Welcome To Our Landing Page</h2>
-            <p>Made with App Layout Elements</p>
+            <div class="kalamkari-info">
+                <h2>Kalamkari</h2>
+                <p>a multistep process for dying textiles by applying each color with a stylus (kalam) made out of Bamboo split and also using resists, specially revived and developed in our KALAMKARI RESEARCH AND TRAINING CENTRE, Sri Kalahasti. Andhra Pradesh, INDIA after 300 years.</p>
+            </div>
+            <!--<h2>Welcome To Our Landing Page</h2>
+            <p>Made with App Layout Elements</p>-->
         </header>
 
         <ul class="grid">
